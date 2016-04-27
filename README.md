@@ -1,6 +1,6 @@
 #Project 5 - Neighborhood Map
 
-To run the app: download the zipfile, navigate to that folder, and click on index.html
+To run the app: download the zipfile on Github, navigate to that folder, and click on index.html
 
 This is a Single Page App that starts with a prepopulated list of resturants, bars, cafe's, etc. around Minneapolis, MN.  
 

@@ -1,3 +1,5 @@
+var googleError = function() { alert("It seems Google Maps has failed to load (Try checking internet connection and/or script url)"); };
+
 var googleSuccess = function() {
 
   function appViewModel() {
@@ -33,7 +35,6 @@ var googleSuccess = function() {
       });
       getPlaces();
       computeCenter();       
-      var googleError = function() { alert("It seems Google Maps has failed to load (Try checking internet connection and/or script url)"); };
       var list = (document.getElementById('list'));
       map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(list);
       var input = (document.getElementById('pac-input'));
@@ -63,15 +64,6 @@ var googleSuccess = function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
       });   
-      // Handles an event where Google Maps taks too long to load
-      var timer = window.setTimeout(failedToLoad, 5000);
-      google.maps.event.addListener(map, 'tilesloaded', function() {
-        window.clearTimeout(timer);
-      });
-    }
-    // Will let the user know when Google Maps fails to load.
-    function failedToLoad() {
-      $('#map-canvas').html("Google Maps Failed to Load");
     }
 
     /*
