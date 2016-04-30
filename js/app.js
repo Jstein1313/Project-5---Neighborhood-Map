@@ -28,7 +28,7 @@ var googleSuccess = function() {
       }
       for (var j=0,place; j<self.allPlaces().length; j++) {
         place = self.allPlaces()[j];
-        if (self.searchText() === '' || place.name.indexOf(self.searchText()) > -1) {
+        if (self.searchText() === '' || place.name.toLowerCase().indexOf(self.searchText()) > -1) {
     // add those places where name contains search text
           returnArray.push(place);
           for(var e = 0; e < markersArray.length; e++) {      
