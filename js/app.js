@@ -15,6 +15,34 @@ var googleSuccess = function() {
     // array to hold info for knockout
     self.allPlaces = ko.observableArray([]);
 
+    // hold search text
+    self.searchText = ko.observable('');
+
+    // computed array with places that match the filter
+    self.filterPlaces = ko.computed(function() {
+      var returnArray = [];
+
+    // hide all markers
+      for (var i=0; i<markersArray.length; i++) {
+        markersArray[i].setVisible(false);
+      }
+      for (var j=0,place; j<self.allPlaces().length; j++) {
+        place = self.allPlaces()[j];
+        if (self.searchText() === '' || place.name.indexOf(self.searchText()) > -1) {
+    // add those places where name contains search text
+          returnArray.push(place);
+          for(var e = 0; e < markersArray.length; e++) {      
+    // makes those markers visible
+            if(place.place_id === markersArray[e].place_id) { 
+              markersArray[e].setVisible(true);
+            };
+          }; 
+        };
+      };
+      return returnArray;
+    });
+
+
     // string to hold foursquare information
     self.foursquareInfo = '';
 
@@ -36,16 +64,16 @@ var googleSuccess = function() {
       getPlaces();
       computeCenter();       
       var list = (document.getElementById('list'));
-      map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(list);
+        map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(list);
       var input = (document.getElementById('pac-input'));
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
       var searchBox = new google.maps.places.SearchBox(
         (input));
-      google.maps.event.addListener(searchBox, 'places_changed', function() {
-        var places = searchBox.getPlaces();
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+      var places = searchBox.getPlaces();
         clearOverlays();
         self.allPlaces.removeAll();
-        var bounds = new google.maps.LatLngBounds();  
+      var bounds = new google.maps.LatLngBounds();  
 
 
         for(var i=0, place; i<10; i++){
@@ -63,8 +91,9 @@ var googleSuccess = function() {
       google.maps.event.addListener(map, 'bounds_changed', function(){
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
-      });   
+      });
     }
+
 
     /*
     Function to pre-populate the map with place types.  nearbySearch retuns up to 20 places.
