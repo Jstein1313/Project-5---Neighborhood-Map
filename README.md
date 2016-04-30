@@ -10,3 +10,5 @@ The list and markers will update on search with information on all places within
 
 Click on an item in the list to view more information from the Foursquare API such as Name, Phone Number, and Twitter handle. 
 
+The user can also filter the list by the separate text box in the top left
+
